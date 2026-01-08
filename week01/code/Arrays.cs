@@ -17,9 +17,13 @@ public static class Arrays
         // 6. After the loop finishes, return the array containing all multiples.
 
 
-        double[] result = new double[count]; for (int i = 0; i < count; i++) { result[i] = startingNumber * (i + 1); 
-        } return result;
-    }
+        double[] result = new double[count];
+        for (int i = 0; i < count; i++)
+        {
+            result[i] = startingNumber * (i + 1);
+        }
+        return result;
+   } 
 
         // Plan for RotateListRight function:
         // 1. Receive a list of data and an integer amount to rotate to the right.
@@ -31,16 +35,31 @@ public static class Arrays
         // 5. Create a new list by adding tail first, then head.
         // 6. Return the new rotated list.
 
-   public static List<int> RotateListRight(List<int> data, int amount)
+    public static List<int> RotateListRight(List<int> data, int amount)
+{
+    if (data == null || data.Count == 0)
     {
-        if (data == null || data.Count == 0) { return data; }
-        amount = amount % data.Count; // this is to normalize rotation
-        int split = data.Count - amount;
-        List<int> tail = data.GetRange(split, amount);
-        List<int> head = data.GetRange(0, split);
-        List<int> rotated = new List<int>();
-        rotated.AddRange(tail);
-        rotated.AddRange(head);
-        return rotated;
+        return new List<int>(); // return empty list safely
     }
+
+    // Normalize rotation (handle negatives too)
+    amount = ((amount % data.Count) + data.Count) % data.Count;
+
+    if (amount == 0)
+    {
+        return new List<int>(data); // no rotation needed
+    }
+
+    int split = data.Count - amount;
+
+    List<int> tail = data.GetRange(split, amount);
+    List<int> head = data.GetRange(0, split);
+
+    List<int> rotated = new List<int>(data.Count);
+    rotated.AddRange(tail);
+    rotated.AddRange(head);
+
+    return rotated;
+ }
+
 }
