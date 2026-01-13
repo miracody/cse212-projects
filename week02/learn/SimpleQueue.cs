@@ -1,61 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class SimpleQueue {
-    public static void Run() {
-        // Test 1
+public class SimpleQueue
+{
+    private readonly List<int> _queue = new();
+
+    public static void Run()
+    {
         Console.WriteLine("Test 1");
         var queue = new SimpleQueue();
         queue.Enqueue(100);
-        var value = queue.Dequeue();
-        Console.WriteLine(value);
+        Console.WriteLine(queue.Dequeue());
 
         Console.WriteLine("------------");
 
-        // Test 2
         Console.WriteLine("Test 2");
         queue = new SimpleQueue();
         queue.Enqueue(200);
         queue.Enqueue(300);
         queue.Enqueue(400);
-        value = queue.Dequeue();
-        Console.WriteLine(value);
-        value = queue.Dequeue();
-        Console.WriteLine(value);
-        value = queue.Dequeue();
-        Console.WriteLine(value);
+        Console.WriteLine(queue.Dequeue());
+        Console.WriteLine(queue.Dequeue());
+        Console.WriteLine(queue.Dequeue());
 
         Console.WriteLine("------------");
 
-        // Test 3
         Console.WriteLine("Test 3");
         queue = new SimpleQueue();
-        try {
+        try
+        {
             queue.Dequeue();
             Console.WriteLine("Oops ... This shouldn't have worked.");
         }
-        catch (IndexOutOfRangeException) {
+        catch (IndexOutOfRangeException)
+        {
             Console.WriteLine("I got the exception as expected.");
         }
     }
 
-    private readonly List<int> _queue = new();
+    public void Enqueue(int value) => _queue.Add(value);
 
-    /// <summary>
-    /// Enqueue the value provided into the queue
-    /// </summary>
-    public void Enqueue(int value) {
-        _queue.Add(value); // add to back
-    }
-
-    /// <summary>
-    /// Dequeue the next value and return it
-    /// </summary>
-    public int Dequeue() {
+    public int Dequeue()
+    {
         if (_queue.Count == 0)
             throw new IndexOutOfRangeException();
 
-        var value = _queue[0];   // remove from front
+        var value = _queue[0];
         _queue.RemoveAt(0);
         return value;
     }
