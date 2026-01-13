@@ -1,29 +1,29 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-// TODO Problem 2 - Write and run test cases and fix the code to match requirements.
-
 [TestClass]
-public class PriorityQueueTests
+public class PriorityQueue_TestsTest
 {
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
-    public void TestPriorityQueue_1()
+    public void TestPriorityQueue_Int()
     {
-        var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+        var pq = new PriorityQueue();
+        pq.Enqueue("5", 1);
+        pq.Enqueue("10", 2);
+
+        var first = pq.Dequeue();
+        Assert.AreEqual("10", (string)first);
     }
 
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
-    public void TestPriorityQueue_2()
+    public void TestPriorityQueue_String()
     {
-        var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
-    }
+        var pq = new PriorityQueue();
+        pq.Enqueue("low", 1);
+        pq.Enqueue("high", 5);
 
-    // Add more test cases as needed below.
+        var first = pq.Dequeue();
+        Assert.AreEqual("high", (string)first);
+        var second = pq.Dequeue();
+        Assert.AreEqual("low", (string)second);
+    }
 }
