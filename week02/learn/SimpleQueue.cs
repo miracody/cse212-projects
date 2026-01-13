@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 public class SimpleQueue {
     public static void Run() {
-        // Test Cases
-
         // Test 1
         Console.WriteLine("Test 1");
         var queue = new SimpleQueue();
@@ -46,18 +44,18 @@ public class SimpleQueue {
     /// <summary>
     /// Enqueue the value provided into the queue
     /// </summary>
-    private void Enqueue(int value) {
-        _queue.Add(value); // ✅ add to back
+    public void Enqueue(int value) {
+        _queue.Add(value); // add to back
     }
 
     /// <summary>
     /// Dequeue the next value and return it
     /// </summary>
-    private int Dequeue() {
+    public int Dequeue() {
         if (_queue.Count == 0)
             throw new IndexOutOfRangeException();
 
-        var value = _queue[0];   // ✅ remove from front
+        var value = _queue[0];   // remove from front
         _queue.RemoveAt(0);
         return value;
     }
