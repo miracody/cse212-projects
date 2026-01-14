@@ -1,3 +1,8 @@
+// Scenario: Enqueue 5 (priority 1) and 10 (priority 2). 
+// Expected Result: Dequeue returns "10" first. 
+// Defect(s) Found: None. Test passes successfully.
+
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 [TestClass]

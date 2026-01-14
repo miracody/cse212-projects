@@ -1,3 +1,14 @@
+// TakingTurnsQueue.cs
+// This class manages a queue of Person objects, each with a certain number of turns.
+// Scenario: Supports finite turns (positive integer), infinite turns (zero or negative),
+// and throws an exception when the queue is empty.
+// Expected Results: 
+// - Finite turns: Person is re-enqueued until their turns run out, then removed.
+// - Infinite turns: Person is always re-enqueued regardless of turn count.
+// - Empty queue: GetNextPerson() throws InvalidOperationException with message "No one in the queue."
+// Defect(s) Found: None. All test cases (finite repetition, adding players midway, infinite turns, empty queue)
+// passed successfully with this implementation.
+
 using System;
 
 public class TakingTurnsQueue
