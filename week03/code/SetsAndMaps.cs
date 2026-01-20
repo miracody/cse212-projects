@@ -12,23 +12,27 @@ public static class SetsAndMaps
     /// Example: [am, at, ma, if, fi] → ["am & ma", "if & fi"]
     /// </summary>
     public static string[] FindPairs(string[] words)
+{
+    HashSet<string> wordSet = new HashSet<string>(words);
+    List<string> pairs = new List<string>();
+
+    foreach (var word in words)
     {
-        HashSet<string> wordSet = new HashSet<string>(words);
-        List<string> pairs = new List<string>();
-
-        foreach (var word in words)
+        string reversed = new string(word.Reverse().ToArray());
+        if (wordSet.Contains(reversed) && word != reversed)
         {
-            string reversed = new string(word.Reverse().ToArray());
-            if (wordSet.Contains(reversed) && word != reversed)
-            {
-                pairs.Add($"{word} & {reversed}");
-                wordSet.Remove(word);     // avoid duplicates
-                wordSet.Remove(reversed); // avoid duplicates
-            }
-        }
+            var orderedPair = new List<string> { word, reversed };
+            orderedPair.Sort(); // ensures consistent order
+            pairs.Add($"{orderedPair[0]} & {orderedPair[1]}");
 
-        return pairs.ToArray();
+            wordSet.Remove(word);     // avoid duplicates
+            wordSet.Remove(reversed); // avoid duplicates
+        }
     }
+
+    return pairs.ToArray();
+}
+
 
     /// <summary>
     /// Read a census file and summarize degrees earned.
