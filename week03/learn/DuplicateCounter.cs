@@ -29,7 +29,7 @@
 
     foreach (int item in items) 
     { 
-        if (!seen.Add(item)) // Add returns false if item already exists
+        if (!seen.Add(item)) 
         { 
             duplicateCount++;
         } 
