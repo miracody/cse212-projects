@@ -15,19 +15,18 @@ public class Translator
         Console.WriteLine(englishToGerman.Translate("Train")); // ???
     }
 
-    // Dictionary to store translations (key: source word, value: translated word)
-    private readonly Dictionary<string, string> _words = new();
+    private Dictionary<string, string> _words = new();
 
     /// <summary>
     /// Add the translation from 'fromWord' to 'toWord'
     /// </summary>
     public void AddWord(string fromWord, string toWord)
     {
-        _words[fromWord] = toWord; // add or replace translation
+        _words[fromWord] = toWord; // add or update translation
     }
 
     /// <summary>
-    /// Translate the given word; return "???" if no translation exists
+    /// Translate the given word; return "???" if not found
     /// </summary>
     public string Translate(string fromWord)
     {
