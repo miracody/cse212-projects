@@ -52,16 +52,19 @@ public class Maze
     /// Check to see if you can move down. If you can, then move. If you
     /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
     /// </summary>
-    public void MoveDown()
-    {
-        var directions = _mazeMap[(_currX, _currY)];
-        if (!directions[3])
-            throw new InvalidOperationException("Can't go that way!");
-        _currY -= 1;
-    }
+   public void MoveDown()
+{
+    var directions = _mazeMap[(_currX, _currY)];
+    if (!directions[3])
+        throw new InvalidOperationException("Can't go that way!");
 
-    public string GetStatus()
-    {
-        return $"Current location (x={_currX}, y={_currY})";
-    }
+    var newPos = (_currX, _currY - 1);
+    if (!_mazeMap.ContainsKey(newPos))
+        throw new InvalidOperationException("Can't go that way!");
+
+   
+       _currY -= 1;
+   }
 }
+
+
