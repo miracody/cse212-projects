@@ -39,11 +39,12 @@ public class Maze
 public void MoveDown()
 {
     var directions = _mazeMap[(_currX, _currY)];
-    // directions[3] should represent "down"
-    if (!directions[3] || !_mazeMap.ContainsKey((_currX, _currY + 1)))
+    // Use index 2 if convention is [up, right, down, left]
+    if (!directions[2] || !_mazeMap.ContainsKey((_currX, _currY + 1)))
         throw new InvalidOperationException("Can't go that way!");
-    _currY += 1;  // ✅ moving down increases Y
+    _currY += 1;
 }
+
 
 
     /// <summary>
