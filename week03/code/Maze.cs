@@ -30,20 +30,21 @@ public class Maze
     }
 
     public void MoveUp()
-    {
-        var directions = _mazeMap[(_currX, _currY)];
-        if (!directions[2] || !_mazeMap.ContainsKey((_currX, _currY + 1)))
-            throw new InvalidOperationException("Can't go that way!");
-        _currY += 1;
-    }
+{
+    var directions = _mazeMap[(_currX, _currY)];
+    if (!directions[2] || !_mazeMap.ContainsKey((_currX, _currY - 1)))
+        throw new InvalidOperationException("Can't go that way!");
+    _currY -= 1;  // Up decreases Y
+}
+
 public void MoveDown()
 {
     var directions = _mazeMap[(_currX, _currY)];
-    // Use index 2 if convention is [up, right, down, left]
-    if (!directions[2] || !_mazeMap.ContainsKey((_currX, _currY + 1)))
+    if (!directions[3] || !_mazeMap.ContainsKey((_currX, _currY + 1)))
         throw new InvalidOperationException("Can't go that way!");
-    _currY += 1;
+    _currY += 1;  // Down increases Y
 }
+
 
 
 
