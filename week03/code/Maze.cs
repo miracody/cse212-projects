@@ -46,11 +46,11 @@ public class Maze
     }
 
     /// <summary>
-    /// Returns the current status of the maze (position).
-    /// Adjust this if your tests expect something else (like "Solved"/"Blocked").
+    /// Returns the current status of the maze (location).
+    /// Must match the test expectation exactly.
     /// </summary>
     public string GetStatus()
     {
-        return $"Current position: ({_currX}, {_currY})";
+        return $"Current location (x={_currX}, y={_currY})";
     }
 }
