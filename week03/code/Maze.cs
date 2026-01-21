@@ -36,14 +36,15 @@ public class Maze
             throw new InvalidOperationException("Can't go that way!");
         _currY += 1;
     }
+public void MoveDown()
+{
+    var directions = _mazeMap[(_currX, _currY)];
+    // directions[3] should represent "down"
+    if (!directions[3] || !_mazeMap.ContainsKey((_currX, _currY + 1)))
+        throw new InvalidOperationException("Can't go that way!");
+    _currY += 1;  // ✅ moving down increases Y
+}
 
-    public void MoveDown()
-    {
-        var directions = _mazeMap[(_currX, _currY)];
-        if (!directions[3] || !_mazeMap.ContainsKey((_currX, _currY - 1)))
-            throw new InvalidOperationException("Can't go that way!");
-        _currY -= 1;
-    }
 
     /// <summary>
     /// Returns the current status of the maze (location).
