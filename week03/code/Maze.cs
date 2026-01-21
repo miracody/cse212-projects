@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class Maze
 {
+    // Directions: [0] = Left, [1] = Right, [2] = Up, [3] = Down
     private readonly Dictionary<(int, int), bool[]> _mazeMap;
     private int _currX = 1;
     private int _currY = 1;
@@ -12,59 +13,44 @@ public class Maze
         _mazeMap = mazeMap;
     }
 
-    /// <summary>
-    /// Check to see if you can move left. If you can, then move. If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
-    /// </summary>
     public void MoveLeft()
     {
         var directions = _mazeMap[(_currX, _currY)];
-        if (!directions[0])
+        if (!directions[0] || !_mazeMap.ContainsKey((_currX - 1, _currY)))
             throw new InvalidOperationException("Can't go that way!");
         _currX -= 1;
     }
 
-    /// <summary>
-    /// Check to see if you can move right. If you can, then move. If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
-    /// </summary>
     public void MoveRight()
     {
         var directions = _mazeMap[(_currX, _currY)];
-        if (!directions[1])
+        if (!directions[1] || !_mazeMap.ContainsKey((_currX + 1, _currY)))
             throw new InvalidOperationException("Can't go that way!");
         _currX += 1;
     }
 
-    /// <summary>
-    /// Check to see if you can move up. If you can, then move. If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
-    /// </summary>
     public void MoveUp()
     {
         var directions = _mazeMap[(_currX, _currY)];
-        if (!directions[2])
+        if (!directions[2] || !_mazeMap.ContainsKey((_currX, _currY + 1)))
             throw new InvalidOperationException("Can't go that way!");
         _currY += 1;
     }
 
+    public void MoveDown()
+    {
+        var directions = _mazeMap[(_currX, _currY)];
+        if (!directions[3] || !_mazeMap.ContainsKey((_currX, _currY - 1)))
+            throw new InvalidOperationException("Can't go that way!");
+        _currY -= 1;
+    }
+
     /// <summary>
-    /// Check to see if you can move down. If you can, then move. If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
+    /// Returns the current status of the maze (position).
+    /// Adjust this if your tests expect something else (like "Solved"/"Blocked").
     /// </summary>
-   public void MoveDown()
-{
-    var directions = _mazeMap[(_currX, _currY)];
-    if (!directions[3])
-        throw new InvalidOperationException("Can't go that way!");
-
-    var newPos = (_currX, _currY - 1);
-    if (!_mazeMap.ContainsKey(newPos))
-        throw new InvalidOperationException("Can't go that way!");
-
-   
-       _currY -= 1;
-   }
+    public string GetStatus()
+    {
+        return $"Current position: ({_currX}, {_currY})";
+    }
 }
-
-
