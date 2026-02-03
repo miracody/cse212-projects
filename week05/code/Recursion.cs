@@ -27,7 +27,7 @@ public static class Recursion
     }
 
     // Problem 3
-    public static decimal CountWaysToClimb(int s, Dictionary<int, decimal> remember = null)
+    public static decimal CountWaysToClimb(int s, Dictionary<int, decimal>? remember = null)
     {
         if (remember == null) remember = new Dictionary<int, decimal>();
 
@@ -65,7 +65,7 @@ public static class Recursion
     }
 
     // Problem 5
-    public static void SolveMaze(List<string> results, Maze maze, int x = 0, int y = 0, List<(int, int)> currPath = null)
+    public static void SolveMaze(List<string> results, Maze maze, int x = 0, int y = 0, List<(int, int)>? currPath = null)
     {
         if (currPath == null)
             currPath = new List<(int, int)>();
