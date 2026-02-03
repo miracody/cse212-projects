@@ -1,6 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 
+public class Maze
+{
+    private int _width;
+    private int _height;
+    private int _endX;
+    private int _endY;
+    private bool[,] _walls;
+
+    public Maze(int width, int height, int endX, int endY, bool[,] walls)
+    {
+        _width = width;
+        _height = height;
+        _endX = endX;
+        _endY = endY;
+        _walls = walls;
+    }
+
+    public bool IsValidMove(List<(int, int)> path, int x, int y)
+    {
+        // Check bounds
+        if (x < 0 || x >= _width || y < 0 || y >= _height)
+            return false;
+
+        // Check if it's a wall
+        if (_walls[y, x])
+            return false;
+
+        // Check if already visited
+        if (path.Contains((x, y)))
+            return false;
+
+        return true;
+    }
+
+    public bool IsEnd(int x, int y)
+    {
+        return x == _endX && y == _endY;
+    }
+}
+
 public static class Recursion
 {
     /// <summary>
@@ -25,14 +65,12 @@ public static class Recursion
     /// </summary>
     public static void PermutationsChoose(List<string> results, string letters, int size, string word = "")
     {
-        // Base case: if word length == size, add to results
         if (word.Length == size)
         {
             results.Add(word);
             return;
         }
 
-        // Recursive case: try each letter
         for (int i = 0; i < letters.Length; i++)
         {
             string remaining = letters.Substring(0, i) + letters.Substring(i + 1);
@@ -50,16 +88,13 @@ public static class Recursion
     {
         if (remember == null) remember = new Dictionary<int, decimal>();
 
-        // Base cases
         if (s == 0) return 0;
         if (s == 1) return 1;
         if (s == 2) return 2;
         if (s == 3) return 4;
 
-        // Check memoization
         if (remember.ContainsKey(s)) return remember[s];
 
-        // Recursive case
         decimal ways = CountWaysToClimb(s - 1, remember) +
                        CountWaysToClimb(s - 2, remember) +
                        CountWaysToClimb(s - 3, remember);
@@ -78,14 +113,12 @@ public static class Recursion
     {
         int index = pattern.IndexOf('*');
 
-        // Base case: no wildcard left
         if (index == -1)
         {
             results.Add(pattern);
             return;
         }
 
-        // Recursive case: replace * with 0 and 1
         string withZero = pattern.Substring(0, index) + "0" + pattern.Substring(index + 1);
         string withOne = pattern.Substring(0, index) + "1" + pattern.Substring(index + 1);
 
@@ -99,36 +132,34 @@ public static class Recursion
     /// #############
     /// Solve maze recursively: find all paths from (0,0) to end.
     /// </summary>
-    public static void SolveMaze(List<string> results, Maze maze, int x = 0, int y = 0, List<ValueTuple<int, int>>? currPath = null)
+    public static void SolveMaze(List<string> results, Maze maze, int x = 0, int y = 0, List<(int, int)>? currPath = null)
     {
         if (currPath == null)
-            currPath = new List<ValueTuple<int, int>>();
+            currPath = new List<(int, int)>();
 
-        // If out of bounds or blocked, stop
-        if (!maze.IsOpen(x, y)) return;
+        // Check if move is valid
+        if (!maze.IsValidMove(currPath, x, y)) return;
 
-        // If already visited, stop
-        if (currPath.Contains((x, y))) return;
-
-        // Add current position
         currPath.Add((x, y));
 
-        // If reached end, add path to results
         if (maze.IsEnd(x, y))
         {
-            results.Add(currPath.AsString());
+            results.Add(PathToString(currPath));
             currPath.RemoveAt(currPath.Count - 1);
             return;
         }
 
-        // Recursive exploration in 4 directions
-        SolveMaze(results, maze, x + 1, y, new List<ValueTuple<int, int>>(currPath));
-        SolveMaze(results, maze, x - 1, y, new List<ValueTuple<int, int>>(currPath));
-        SolveMaze(results, maze, x, y + 1, new List<ValueTuple<int, int>>(currPath));
-        SolveMaze(results, maze, x, y - 1, new List<ValueTuple<int, int>>(currPath));
+        // Explore neighbors
+        SolveMaze(results, maze, x + 1, y, new List<(int, int)>(currPath));
+        SolveMaze(results, maze, x - 1, y, new List<(int, int)>(currPath));
+        SolveMaze(results, maze, x, y + 1, new List<(int, int)>(currPath));
+        SolveMaze(results, maze, x, y - 1, new List<(int, int)>(currPath));
 
-        // Backtrack
         currPath.RemoveAt(currPath.Count - 1);
     }
-}
 
+    private static string PathToString(List<(int, int)> path)
+    {
+        return string.Join("->", path);
+    }
+}
